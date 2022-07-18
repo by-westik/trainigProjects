@@ -44,6 +44,31 @@ std::vector<std::vector<int>> subMatrix(std::vector<std::vector<int>>& first, st
     return matrix;
 };
 
+bool checkMult(std::vector<std::vector<int>>& first, std::vector<std::vector<int>>& second){
+    if (first[0].size() == second.size()){
+        return true;
+    } else {
+        return false;
+    };
+};
+
+std::vector<std::vector<int>> multMatrix(std::vector<std::vector<int>>& first, std::vector<std::vector<int>>& second){
+    if(checkMult(first, second)){
+        int row = first.size(), column = second[0].size();
+        std::vector<std::vector<int>> res(row, std::vector<int>(column, 0));
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < column; j++){
+                for(int k = 0; k < first[0].size(); k++){
+                    res[i][j] += first[i][k] * second[k][j];
+                };
+            };
+        };
+        return res;
+    } else {
+        std::cout << "Нельзя перемножить матрицы" << std::endl;
+    };
+};
+
 int main(){
     int n, m;
     std::cout << "Введите количество строк" << std::endl;
@@ -62,5 +87,8 @@ int main(){
     std::cout << std::endl;
     std::vector<std::vector<int>> submatrix = subMatrix(matrix1, matrix2);
     printMatrix(submatrix, n, m);
+    std::cout << std::endl;
+    std::vector<std::vector<int>> multmatrix = multMatrix(matrix1, matrix2);
+    printMatrix(multmatrix, n, m);
     return 0;
 };
